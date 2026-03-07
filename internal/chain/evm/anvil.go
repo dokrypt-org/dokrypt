@@ -373,7 +373,7 @@ func (a *AnvilChain) generateAccounts(ctx context.Context) ([]chain.Account, err
 	keyInfos, _ := common.GenerateAccounts(common.DefaultSeed, len(addresses))
 	keyMap := make(map[string]string) // lowercase address → private key
 	for _, info := range keyInfos {
-		keyMap[fmt.Sprintf("%s", info.Address)] = info.PrivateKey
+		keyMap[info.Address] = info.PrivateKey
 	}
 
 	balWei := new(big.Int)

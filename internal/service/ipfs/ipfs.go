@@ -24,15 +24,6 @@ type Service struct {
 }
 
 func New(name string, cfg config.ServiceConfig, runtime container.Runtime, projectName string) (*Service, error) {
-	apiPort := cfg.APIPort
-	if apiPort == 0 {
-		apiPort = defaultAPIPort
-	}
-	gatewayPort := cfg.GatewayPort
-	if gatewayPort == 0 {
-		gatewayPort = defaultGatewayPort
-	}
-
 	return &Service{
 		BaseService: service.BaseService{
 			ServiceName:  name,

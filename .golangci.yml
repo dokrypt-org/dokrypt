@@ -1,0 +1,23 @@
+linters:
+  enable:
+    - govet
+    - gosimple
+    - staticcheck
+    - unused
+    - ineffassign
+    - typecheck
+  disable:
+    - errcheck
+
+linters-settings:
+  staticcheck:
+    checks:
+      - "all"
+      - "-SA1019"
+
+output:
+  formats:
+    - format: colored-line-number
+
+run:
+  timeout: 5m

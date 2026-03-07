@@ -437,7 +437,7 @@ func (d *DockerRuntime) ListNetworks(ctx context.Context) ([]NetworkInfo, error)
 	result := make([]NetworkInfo, 0, len(networks))
 	for _, n := range networks {
 		var subnet string
-		if n.IPAM.Config != nil && len(n.IPAM.Config) > 0 {
+		if len(n.IPAM.Config) > 0 {
 			subnet = n.IPAM.Config[0].Subnet
 		}
 		result = append(result, NetworkInfo{

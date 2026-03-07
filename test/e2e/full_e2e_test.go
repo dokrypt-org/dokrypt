@@ -1,9 +1,7 @@
 package e2e
 
 import (
-	"encoding/json"
 	"fmt"
-	"net"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -112,27 +110,6 @@ func assertContains(t *testing.T, output, expected string) {
 	}
 }
 
-func assertNotContains(t *testing.T, output, unexpected string) {
-	t.Helper()
-	if strings.Contains(output, unexpected) {
-		t.Errorf("expected output NOT to contain %q, got:\n%s", unexpected, output)
-	}
-}
-
-func waitForPort(t *testing.T, port int, timeout time.Duration) {
-	t.Helper()
-	deadline := time.Now().Add(timeout)
-	addr := fmt.Sprintf("127.0.0.1:%d", port)
-	for time.Now().Before(deadline) {
-		conn, err := net.DialTimeout("tcp", addr, 500*time.Millisecond)
-		if err == nil {
-			conn.Close()
-			return
-		}
-		time.Sleep(500 * time.Millisecond)
-	}
-	t.Fatalf("port %d not available after %v", port, timeout)
-}
 
 func dockerAvailable(t *testing.T) {
 	t.Helper()
@@ -672,45 +649,3 @@ func mustExist(t *testing.T, path string) {
 	}
 }
 
-func rpcCall(url, method string, params ...any) (json.RawMessage, error) {
-	if params == nil {
-		params = []any{}
-	}
-	body := map[string]any{
-		"jsonrpc": "2.0",
-		"method":  method,
-		"params":  params,
-		"id":      1,
-	}
-	data, _ := json.Marshal(body)
-
-	resp, err := httpPost(url, data)
-	if err != nil {
-		return nil, err
-	}
-
-	var result struct {
-		Result json.RawMessage `json:"result"`
-		Error  *struct {
-			Message string `json:"message"`
-		} `json:"error"`
-	}
-	if err := json.Unmarshal(resp, &result); err != nil {
-		return nil, err
-	}
-	if result.Error != nil {
-		return nil, fmt.Errorf("rpc error: %s", result.Error.Message)
-	}
-	return result.Result, nil
-}
-
-func httpPost(url string, body []byte) ([]byte, error) {
-	cmd := exec.Command("curl", "-s", "-X", "POST",
-		"-H", "Content-Type: application/json",
-		"-d", string(body), url)
-	out, err := cmd.Output()
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}

@@ -59,16 +59,14 @@ func AssertEvent(t testing.TB, tx *Transaction, eventName string, args map[strin
 	t.Helper()
 	for _, log := range tx.Logs {
 		if log.Name == eventName {
-			if args != nil {
-				for key, expected := range args {
-					actual, ok := log.Args[key]
-					if !ok {
-						t.Errorf("event %q missing arg %q", eventName, key)
-						continue
-					}
-					if fmt.Sprint(actual) != fmt.Sprint(expected) {
-						t.Errorf("event %q arg %q: expected %v, got %v", eventName, key, expected, actual)
-					}
+			for key, expected := range args {
+				actual, ok := log.Args[key]
+				if !ok {
+					t.Errorf("event %q missing arg %q", eventName, key)
+					continue
+				}
+				if fmt.Sprint(actual) != fmt.Sprint(expected) {
+					t.Errorf("event %q arg %q: expected %v, got %v", eventName, key, expected, actual)
 				}
 			}
 			return
