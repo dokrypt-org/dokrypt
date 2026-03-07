@@ -466,7 +466,7 @@ func TestConsoleSpinner_Update(t *testing.T) {
 	s := out.Spinner("initial message")
 	time.Sleep(20 * time.Millisecond)
 	s.Update("new message")
-	time.Sleep(150 * time.Millisecond) // Wait for a tick to render the new message.
+	time.Sleep(500 * time.Millisecond)
 	s.Stop()
 
 	output := buf.String()

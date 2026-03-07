@@ -4,10 +4,12 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"sync"
 	"time"
 )
 
 type mockRuntime struct {
+	mu sync.Mutex
 	createContainerFn  func(ctx context.Context, cfg *ContainerConfig) (string, error)
 	startContainerFn   func(ctx context.Context, id string) error
 	stopContainerFn    func(ctx context.Context, id string, timeout time.Duration) error
@@ -48,7 +50,9 @@ func newMockRuntime() *mockRuntime {
 }
 
 func (m *mockRuntime) recordCall(name string) {
+	m.mu.Lock()
 	m.calls[name]++
+	m.mu.Unlock()
 }
 
 func (m *mockRuntime) CreateContainer(ctx context.Context, cfg *ContainerConfig) (string, error) {
