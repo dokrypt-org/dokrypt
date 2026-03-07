@@ -16,10 +16,11 @@
 </p>
 
 <p align="center">
-  <a href="https://keldra.mintlify.app">Documentation</a> &middot;
+  <a href="https://docs.dokrypt.com">Documentation</a> &middot;
   <a href="https://github.com/dokrypt-org/dokrypt/issues">Issues</a> &middot;
-  <a href="https://keldra.mintlify.app/quickstart">Quickstart</a> &middot;
-  <a href="https://www.npmjs.com/package/dokrypt">npm</a>
+  <a href="https://docs.dokrypt.com/quickstart">Quickstart</a> &middot;
+  <a href="https://www.npmjs.com/package/dokrypt">npm</a> &middot;
+  <a href="https://discord.gg/HG94Jg6PS2">Discord</a>
 </p>
 
 ---
@@ -335,7 +336,7 @@ make release         # GoReleaser snapshot
 
 ## Documentation
 
-Full documentation is available at **[keldra.mintlify.app](https://keldra.mintlify.app)**.
+Full documentation is available at **[docs.dokrypt.com](https://docs.dokrypt.com)**.
 
 ## License
 
