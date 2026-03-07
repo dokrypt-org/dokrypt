@@ -3,7 +3,9 @@ package common
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -460,8 +462,10 @@ func TestConsoleSpinner_StopWithError(t *testing.T) {
 }
 
 func TestConsoleSpinner_Update(t *testing.T) {
+	var mu sync.Mutex
 	var buf bytes.Buffer
-	out := NewConsoleOutput(&buf, true, false)
+	w := &syncWriter{mu: &mu, w: &buf}
+	out := NewConsoleOutput(w, true, false)
 
 	s := out.Spinner("initial message")
 	time.Sleep(20 * time.Millisecond)
@@ -469,8 +473,21 @@ func TestConsoleSpinner_Update(t *testing.T) {
 	time.Sleep(500 * time.Millisecond)
 	s.Stop()
 
+	mu.Lock()
 	output := buf.String()
+	mu.Unlock()
 	assert.Contains(t, output, "new message")
+}
+
+type syncWriter struct {
+	mu *sync.Mutex
+	w  io.Writer
+}
+
+func (sw *syncWriter) Write(p []byte) (int, error) {
+	sw.mu.Lock()
+	defer sw.mu.Unlock()
+	return sw.w.Write(p)
 }
 
 func TestConsoleSpinner_QuietMode_NoGoroutine(t *testing.T) {

@@ -226,6 +226,7 @@ func (p *consoleProgressBar) render() {
 type consoleSpinner struct {
 	output *ConsoleOutput
 	msg    string
+	mu     sync.Mutex
 	done   chan struct{}
 	once   sync.Once
 	frames []string
@@ -241,15 +242,20 @@ func (s *consoleSpinner) run() {
 		case <-s.done:
 			return
 		case <-ticker.C:
+			s.mu.Lock()
+			msg := s.msg
+			s.mu.Unlock()
 			frame := s.output.styles.spinner.Render(s.frames[i%len(s.frames)])
-			fmt.Fprintf(s.output.writer, "\r  %s %s", frame, s.msg)
+			fmt.Fprintf(s.output.writer, "\r  %s %s", frame, msg)
 			i++
 		}
 	}
 }
 
 func (s *consoleSpinner) Update(msg string) {
+	s.mu.Lock()
 	s.msg = msg
+	s.mu.Unlock()
 }
 
 func (s *consoleSpinner) Stop() {
