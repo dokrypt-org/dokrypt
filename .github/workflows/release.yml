@@ -70,8 +70,8 @@ jobs:
           file: deploy/docker/Dockerfile.cli
           push: true
           tags: |
-            ghcr.io/dokrypt/dokrypt:${{ steps.version.outputs.VERSION }}
-            ghcr.io/dokrypt/dokrypt:latest
+            ghcr.io/dokrypt-org/dokrypt:${{ steps.version.outputs.VERSION }}
+            ghcr.io/dokrypt-org/dokrypt:latest
           platforms: linux/amd64,linux/arm64
 
   npm:
