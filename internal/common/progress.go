@@ -167,6 +167,7 @@ func (o *ConsoleOutput) Spinner(msg string) Spinner {
 		frames:  []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"},
 	}
 	if !o.quiet {
+		s.wg.Add(1)
 		go s.run()
 	}
 	return s
@@ -228,11 +229,13 @@ type consoleSpinner struct {
 	msg    string
 	mu     sync.Mutex
 	done   chan struct{}
+	wg     sync.WaitGroup
 	once   sync.Once
 	frames []string
 }
 
 func (s *consoleSpinner) run() {
+	defer s.wg.Done()
 	i := 0
 	ticker := time.NewTicker(80 * time.Millisecond)
 	defer ticker.Stop()
@@ -261,13 +264,15 @@ func (s *consoleSpinner) Update(msg string) {
 func (s *consoleSpinner) Stop() {
 	s.once.Do(func() {
 		close(s.done)
-		fmt.Fprint(s.output.writer, "\r\033[K") // Clear line
+		s.wg.Wait()
+		fmt.Fprint(s.output.writer, "\r\033[K")
 	})
 }
 
 func (s *consoleSpinner) StopWithSuccess(msg string) {
 	s.once.Do(func() {
 		close(s.done)
+		s.wg.Wait()
 		fmt.Fprint(s.output.writer, "\r\033[K")
 		s.output.Success("%s", msg)
 	})
@@ -276,6 +281,7 @@ func (s *consoleSpinner) StopWithSuccess(msg string) {
 func (s *consoleSpinner) StopWithError(msg string) {
 	s.once.Do(func() {
 		close(s.done)
+		s.wg.Wait()
 		fmt.Fprint(s.output.writer, "\r\033[K")
 		s.output.Error("%s", msg)
 	})

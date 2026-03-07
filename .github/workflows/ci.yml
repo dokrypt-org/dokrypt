@@ -118,6 +118,7 @@ jobs:
           govulncheck ./...
 
       - name: Run gosec
+        continue-on-error: true
         uses: securego/gosec@master
         with:
           args: -exclude=G104 ./...

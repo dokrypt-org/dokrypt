@@ -526,13 +526,17 @@ func TestConsoleSpinner_WithColor(t *testing.T) {
 	t.Setenv("CI", "")
 
 	var buf bytes.Buffer
-	out := NewConsoleOutput(&buf, false, false)
+	var mu sync.Mutex
+	w := &syncWriter{mu: &mu, w: &buf}
+	out := NewConsoleOutput(w, false, false)
 
 	s := out.Spinner("color spinner")
-	time.Sleep(150 * time.Millisecond) // Allow at least one tick.
+	time.Sleep(150 * time.Millisecond)
 	s.Stop()
 
+	mu.Lock()
 	output := buf.String()
+	mu.Unlock()
 	assert.Contains(t, output, "\033[")
 }
 
