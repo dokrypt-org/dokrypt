@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dokrypt/dokrypt"
+    "url": "https://github.com/dokrypt-org/dokrypt"
   },
   "os": ["darwin"],
   "cpu": ["x64"],

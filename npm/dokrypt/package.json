@@ -23,6 +23,9 @@
     "anvil",
     "foundry"
   ],
+  "files": [
+    "bin/dokrypt.js"
+  ],
   "bin": {
     "dokrypt": "bin/dokrypt.js"
   },
