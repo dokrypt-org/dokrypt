@@ -6,7 +6,7 @@ If you discover a security vulnerability in Dokrypt, please report it responsibl
 
 **Do not open a public issue.**
 
-Email **security@dokrypt.dev** with:
+Email **security@dokrypt.com** with:
 
 - Description of the vulnerability
 - Steps to reproduce

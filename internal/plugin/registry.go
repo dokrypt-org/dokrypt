@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	DefaultRegistryURL = "https://hub.dokrypt.dev/api/v1"
+	DefaultRegistryURL = "https://hub.dokrypt.com/api/v1"
 )
 
 type RegistryClient struct {
@@ -106,7 +106,7 @@ func (c *RegistryClient) Download(ctx context.Context, name string, version stri
 		return nil, fmt.Errorf("plugin %q (version %s) not found in registry", name, version)
 	}
 	if resp.StatusCode == http.StatusPaymentRequired {
-		return nil, fmt.Errorf("plugin %q requires a license — visit https://dokrypt.dev/pricing", name)
+		return nil, fmt.Errorf("plugin %q requires a license — visit https://dokrypt.com/pricing", name)
 	}
 	if resp.StatusCode != http.StatusOK {
 		return nil, c.handleErrorStatus(name, resp)
@@ -130,7 +130,7 @@ func (c *RegistryClient) Publish(ctx context.Context, manifest Manifest, archive
 		return fmt.Errorf("plugin version is required")
 	}
 
-	return fmt.Errorf("plugin registry publishing is coming soon — visit https://hub.dokrypt.dev for updates")
+	return fmt.Errorf("plugin registry publishing is coming soon — visit https://hub.dokrypt.com for updates")
 }
 
 func (c *RegistryClient) handleErrorStatus(label string, resp *http.Response) error {

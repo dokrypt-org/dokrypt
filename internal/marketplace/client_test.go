@@ -310,7 +310,7 @@ func TestClient_Download_PaymentRequired(t *testing.T) {
 	require.Error(t, err)
 	assert.Nil(t, data)
 	assert.Contains(t, err.Error(), "requires a license")
-	assert.Contains(t, err.Error(), "dokrypt.dev/pricing")
+	assert.Contains(t, err.Error(), "dokrypt.com/pricing")
 }
 
 func TestClient_Download_ServerError(t *testing.T) {
@@ -376,7 +376,7 @@ func TestClient_Publish_ComingSoon(t *testing.T) {
 	err := client.Publish(meta, "/path/to/archive.tar.gz", "my-token")
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "coming soon")
-	assert.Contains(t, err.Error(), "hub.dokrypt.dev")
+	assert.Contains(t, err.Error(), "hub.dokrypt.com")
 }
 
 func TestClient_Publish_ValidatesBeforeHubCheck(t *testing.T) {
@@ -392,7 +392,7 @@ func TestClient_Publish_ValidatesBeforeHubCheck(t *testing.T) {
 }
 
 func TestDefaultHubURL_Value(t *testing.T) {
-	assert.Equal(t, "https://hub.dokrypt.dev/api/v1", DefaultHubURL)
+	assert.Equal(t, "https://hub.dokrypt.com/api/v1", DefaultHubURL)
 }
 
 func TestClient_Search_EmptyQuery(t *testing.T) {

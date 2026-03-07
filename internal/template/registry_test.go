@@ -26,7 +26,7 @@ func TestNewRegistryClientEmptyURL(t *testing.T) {
 }
 
 func TestNewRegistryClientDefaultURL(t *testing.T) {
-	assert.Equal(t, "https://hub.dokrypt.dev/api/v1", DefaultRegistryURL)
+	assert.Equal(t, "https://hub.dokrypt.com/api/v1", DefaultRegistryURL)
 }
 
 func TestDefaultRegistryClient(t *testing.T) {
@@ -185,7 +185,7 @@ func TestRegistryClientPullPaymentRequired(t *testing.T) {
 	assert.Error(t, err)
 	assert.Nil(t, data)
 	assert.Contains(t, err.Error(), "requires a license")
-	assert.Contains(t, err.Error(), "dokrypt.dev/pricing")
+	assert.Contains(t, err.Error(), "dokrypt.com/pricing")
 }
 
 func TestRegistryClientPullServerError(t *testing.T) {

@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	DefaultRegistryURL = "https://hub.dokrypt.dev/api/v1"
+	DefaultRegistryURL = "https://hub.dokrypt.com/api/v1"
 )
 
 type RegistryClient struct {
@@ -78,7 +78,7 @@ func (c *RegistryClient) Pull(ctx context.Context, name string) ([]byte, error) 
 		return nil, fmt.Errorf("template %q not found in registry", name)
 	}
 	if resp.StatusCode == http.StatusPaymentRequired {
-		return nil, fmt.Errorf("template %q requires a license — visit https://dokrypt.dev/pricing", name)
+		return nil, fmt.Errorf("template %q requires a license — visit https://dokrypt.com/pricing", name)
 	}
 	if resp.StatusCode != http.StatusOK {
 		return nil, c.handleErrorStatus(name, resp)
@@ -102,7 +102,7 @@ func (c *RegistryClient) Push(ctx context.Context, meta Template, archivePath st
 		return fmt.Errorf("template version is required")
 	}
 
-	return fmt.Errorf("template registry publishing is coming soon — visit https://hub.dokrypt.dev for updates")
+	return fmt.Errorf("template registry publishing is coming soon — visit https://hub.dokrypt.com for updates")
 }
 
 func (c *RegistryClient) handleErrorStatus(label string, resp *http.Response) error {

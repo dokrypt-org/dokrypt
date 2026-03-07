@@ -9,7 +9,7 @@
 
 ## Enforcement
 
-Instances of unacceptable behavior may be reported to **conduct@dokrypt.dev**. All complaints will be reviewed and investigated.
+Instances of unacceptable behavior may be reported to **conduct@dokrypt.com**. All complaints will be reviewed and investigated.
 
 ## Scope
 

@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DefaultHubURL = "https://hub.dokrypt.dev/api/v1"
+	DefaultHubURL = "https://hub.dokrypt.com/api/v1"
 )
 
 type Client struct {
@@ -102,7 +102,7 @@ func (c *Client) Download(name string) ([]byte, error) {
 		return nil, fmt.Errorf("template %q not found in marketplace", name)
 	}
 	if resp.StatusCode == http.StatusPaymentRequired {
-		return nil, fmt.Errorf("template %q requires a license — visit https://dokrypt.dev/pricing", name)
+		return nil, fmt.Errorf("template %q requires a license — visit https://dokrypt.com/pricing", name)
 	}
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("marketplace returned status %d", resp.StatusCode)
@@ -126,5 +126,5 @@ func (c *Client) Publish(meta PackageMeta, archivePath string, token string) err
 		return fmt.Errorf("template version is required")
 	}
 
-	return fmt.Errorf("marketplace hub publishing is coming soon — visit https://hub.dokrypt.dev for updates")
+	return fmt.Errorf("marketplace hub publishing is coming soon — visit https://hub.dokrypt.com for updates")
 }
