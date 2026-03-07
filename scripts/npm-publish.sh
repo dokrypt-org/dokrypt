@@ -55,6 +55,7 @@ for goreleaser_dir in "${!PLATFORM_MAP[@]}"; do
     continue
   fi
 
+  mkdir -p "$(dirname "$dest")"
   cp "$src" "$dest"
   chmod +x "$dest"
   echo "  OK   $pkg <- $goreleaser_dir/$bin"
