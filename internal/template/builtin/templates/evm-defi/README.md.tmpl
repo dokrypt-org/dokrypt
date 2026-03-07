@@ -1,0 +1,124 @@
+# {{ .ProjectName }} - DeFi Stack
+
+A complete, production-quality DeFi protocol stack built with Solidity ^0.8.20. All contracts are standalone with no external dependencies.
+
+## Architecture
+
+This template includes five core DeFi modules:
+
+### 1. Token (`contracts/token/DeFiToken.sol`)
+Full ERC-20 token implementation with:
+- Standard `transfer`, `approve`, `transferFrom`
+- Owner-controlled `mint` and permissionless `burn`
+- Governance delegation with voting power tracking
+- Ownership transfer
+
+### 2. AMM - Automated Market Maker (`contracts/amm/`)
+UniswapV2-style constant-product AMM:
+
+- **Factory** (`Factory.sol`) - Creates and tracks liquidity pairs using CREATE2 for deterministic addresses
+- **Pair** (`Pair.sol`) - Liquidity pool implementing x*y=k invariant with built-in ERC-20 LP tokens, minimum liquidity lock, 0.3% swap fee, and TWAP price accumulator
+- **Router** (`Router.sol`) - High-level interface for adding/removing liquidity and performing swaps with deadline and slippage protection
+
+### 3. Lending (`contracts/lending/`)
+Collateralized lending and borrowing protocol:
+
+- **LendingVault** (`LendingVault.sol`) - Deposit collateral, borrow against it, repay, and liquidate underwater positions. Supports multiple collateral types with configurable collateral factors
+- **InterestModel** (`InterestModel.sol`) - Kinked linear interest rate model based on utilization. Low rates below optimal utilization, steep rates above
+
+Key parameters:
+- Collateral Factor: 75%
+- Liquidation Threshold: 80%
+- Liquidation Bonus: 5%
+
+### 4. Staking (`contracts/staking/StakingRewards.sol`)
+Synthetix-style staking rewards:
+- Stake tokens, earn proportional rewards over time
+- Configurable reward rate and duration
+- Functions: `stake()`, `withdraw()`, `getReward()`, `exit()`
+
+### 5. Oracle (`contracts/oracle/PriceOracle.sol`)
+Simple owner-managed price feed:
+- Set prices for any asset
+- Batch price updates
+- Staleness checks (1-hour maximum age)
+
+## Quick Start
+
+### Prerequisites
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
+- Node.js >= 16 (for deploy scripts)
+
+### Build
+```bash
+forge build
+```
+
+### Test
+```bash
+forge test -vvv
+```
+
+### Deploy (local)
+```bash
+# Start a local node
+anvil
+
+# Deploy AMM
+npx hardhat run scripts/deploy-amm.js --network localhost
+
+# Deploy Lending
+npx hardhat run scripts/deploy-lending.js --network localhost
+
+# Deploy Staking
+npx hardhat run scripts/deploy-staking.js --network localhost
+```
+
+## Project Structure
+
+```
+contracts/
+  token/
+    DeFiToken.sol        # ERC-20 with mint/burn/governance
+  amm/
+    Factory.sol          # Pair factory (CREATE2)
+    Pair.sol             # Liquidity pair (x*y=k)
+    Router.sol           # Swap & liquidity router
+  lending/
+    LendingVault.sol     # Lending/borrowing vault
+    InterestModel.sol    # Interest rate model
+  staking/
+    StakingRewards.sol   # Staking rewards
+  oracle/
+    PriceOracle.sol      # Price oracle
+
+test/
+  amm/
+    Router.t.sol         # Router tests
+    Factory.t.sol        # Factory tests
+  lending/
+    LendingVault.t.sol   # Lending tests
+  staking/
+    StakingRewards.t.sol # Staking tests
+
+scripts/
+  deploy-amm.js          # AMM deployment
+  deploy-lending.js      # Lending deployment
+  deploy-staking.js      # Staking deployment
+```
+
+## Security Notes
+
+- All contracts include reentrancy guards on state-changing functions
+- The AMM pair locks a minimum liquidity amount permanently to prevent division by zero
+- The lending vault enforces collateral ratio checks before and after every user action
+- The price oracle includes a staleness check to prevent using outdated prices
+- No external imports or dependencies -- all code is self-contained
+
+## Configuration
+
+See `dokrypt.yaml` for chain configuration and `foundry.toml` for compiler settings.
+
+## License
+
+MIT

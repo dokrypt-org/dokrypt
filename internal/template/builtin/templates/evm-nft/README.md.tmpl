@@ -1,0 +1,135 @@
+# {{ .ProjectName }} - NFT Collection & Marketplace
+
+A complete NFT development stack built with [Dokrypt](https://dokrypt.dev), featuring an ERC-721 collection, a decentralized marketplace, and EIP-2981 royalty support.
+
+## Architecture
+
+This template includes three core smart contracts:
+
+- **NFTCollection.sol** - A standalone ERC-721 implementation with minting, max supply cap, configurable mint price, and IPFS-based metadata.
+- **Marketplace.sol** - A decentralized NFT marketplace supporting listings, purchases, cancellations, and an offer system with a 2.5% platform fee.
+- **Royalty.sol** - An EIP-2981 royalty standard implementation with global defaults and per-token overrides.
+
+All contracts are **standalone** with no external dependencies (no OpenZeppelin). They compile with Solidity `^0.8.20`.
+
+## Services
+
+| Service    | Description                  | URL                        |
+|------------|------------------------------|----------------------------|
+| {{ .ChainName }} | Local EVM chain              | http://localhost:8545       |
+| IPFS       | Decentralized file storage   | http://localhost:5001       |
+| IPFS Gateway | View IPFS content           | http://localhost:8080       |
+| Explorer   | Block explorer (Blockscout)  | http://localhost:4000       |
+
+## Quick Start
+
+```bash
+# Start the development environment
+dokrypt up
+
+# Compile contracts
+forge build
+
+# Run tests
+forge test -vvv
+
+# Deploy contracts
+node scripts/deploy-nft.js
+
+# Upload metadata to IPFS
+node scripts/upload-metadata.js
+```
+
+## Project Structure
+
+```
+├── contracts/
+│   ├── NFTCollection.sol    # ERC-721 NFT collection
+│   ├── Marketplace.sol      # NFT marketplace with offers
+│   └── Royalty.sol           # EIP-2981 royalty standard
+├── test/
+│   ├── NFTCollection.t.sol  # NFT collection tests
+│   ├── Marketplace.t.sol    # Marketplace tests
+│   └── Royalty.t.sol         # Royalty tests
+├── scripts/
+│   ├── deploy-nft.js        # Deployment script
+│   └── upload-metadata.js   # IPFS metadata upload
+├── dokrypt.yaml             # Dokrypt configuration
+├── foundry.toml             # Foundry configuration
+└── README.md
+```
+
+## Contracts
+
+### NFTCollection (ERC-721)
+
+The collection contract supports:
+
+- **Minting** with auto-incrementing token IDs and a configurable mint price
+- **Max supply** cap to limit the total number of tokens
+- **Base URI** for IPFS metadata resolution
+- **Full ERC-721 compliance** including `safeTransferFrom` with `onERC721Received` callback
+- **ERC-165** interface detection
+- **Owner withdrawal** of accumulated mint proceeds
+
+### Marketplace
+
+The marketplace contract supports:
+
+- **List items** - Token owners can list their NFTs at a fixed price
+- **Buy items** - Anyone can purchase a listed NFT by sending the listing price
+- **Cancel listings** - Sellers can remove their listings at any time
+- **Make offers** - Buyers can make offers on any NFT (funds held in escrow)
+- **Accept offers** - Token owners can accept any active offer
+- **Withdraw offers** - Offerers can reclaim their escrowed funds
+- **Platform fee** - 2.5% fee on all sales, withdrawable by the contract owner
+
+### Royalty (EIP-2981)
+
+The royalty contract supports:
+
+- **Default royalty** - A global royalty percentage applied to all tokens
+- **Per-token overrides** - Individual tokens can have custom royalty settings
+- **Max cap** - Royalties are capped at 10% to protect buyers
+- **ERC-165** interface detection for the EIP-2981 standard
+
+## Metadata Format
+
+NFT metadata follows the standard JSON format:
+
+```json
+{
+  "name": "My NFT #1",
+  "description": "An awesome NFT from my collection",
+  "image": "ipfs://YOUR_IMAGE_CID",
+  "attributes": [
+    { "trait_type": "Background", "value": "Blue" },
+    { "trait_type": "Rarity", "value": "Common" }
+  ]
+}
+```
+
+Upload metadata to IPFS using the provided script, then set the base URI on the collection contract.
+
+## Testing
+
+Run the full test suite:
+
+```bash
+forge test -vvv
+```
+
+Tests cover:
+
+- Minting and token ID auto-increment
+- Transfers (regular and safe)
+- Approvals and operator management
+- Token URI generation
+- Marketplace listing, buying, and cancellation
+- Offer creation, acceptance, and withdrawal
+- Platform fee calculations
+- Royalty calculations with default and per-token overrides
+
+## License
+
+Apache-2.0

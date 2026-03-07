@@ -1,0 +1,13 @@
+{
+  "name": "@dokrypt/darwin-x64",
+  "version": "0.0.0",
+  "description": "Dokrypt CLI binary for macOS Intel",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dokrypt/dokrypt"
+  },
+  "os": ["darwin"],
+  "cpu": ["x64"],
+  "files": ["bin/dokrypt"]
+}

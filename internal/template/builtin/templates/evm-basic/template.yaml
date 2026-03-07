@@ -1,0 +1,12 @@
+name: evm-basic
+version: "2.0.0"
+description: "Starter EVM environment with Counter and ERC-20 token"
+author: dokrypt
+category: basic
+difficulty: beginner
+premium: false
+price: "free"
+tags: [evm, ethereum, basic, starter, erc20]
+chains: [ethereum]
+services: []
+license: Apache-2.0

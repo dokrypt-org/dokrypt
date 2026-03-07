@@ -1,0 +1,12 @@
+name: evm-defi
+version: "2.0.0"
+description: "Full DeFi stack: AMM, lending vault, staking, oracle"
+author: dokrypt
+category: defi
+difficulty: advanced
+premium: false
+price: free
+tags: [defi, evm, amm, lending, staking, oracle]
+chains: [ethereum]
+services: [ipfs, subgraph, blockscout, chainlink-mock]
+license: Apache-2.0

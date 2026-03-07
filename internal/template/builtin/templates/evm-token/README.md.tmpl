@@ -1,0 +1,111 @@
+# {{ .ProjectName }} - EVM Token Toolkit
+
+A comprehensive token management toolkit built with Solidity ^0.8.20 and Foundry. All contracts are standalone with no external dependencies.
+
+## Contracts
+
+### ManagedToken (ERC-20)
+Full-featured ERC-20 token with owner-controlled minting, user burn, and pause functionality.
+
+- **Mint** -- Owner can mint new tokens to any address
+- **Burn** -- Any holder can burn their own tokens
+- **Pause/Unpause** -- Owner can pause all transfers in an emergency
+- **Ownership Transfer** -- Owner can transfer control to a new address
+
+### VestingSchedule
+Linear token vesting with cliff support. Designed for team allocations, advisor grants, and contributor rewards.
+
+- **Create schedules** with configurable start, cliff period, and total duration
+- **Linear vesting** after the cliff -- tokens unlock proportionally over time
+- **Release** vested tokens at any time after cliff
+- **Revoke** unvested tokens (owner only) -- vested portion goes to beneficiary, rest returns to owner
+
+### StakeRewards
+Proportional staking rewards distribution based on the Synthetix staking model.
+
+- **Stake** tokens to earn rewards proportional to your share of the pool
+- **Withdraw** staked tokens at any time
+- **Claim** accumulated rewards
+- **Configurable** reward rate and duration period
+
+### MultiSig
+M-of-N multisignature wallet for secure fund management and governance.
+
+- **Submit** transactions (ETH transfers or arbitrary contract calls)
+- **Confirm** pending transactions (each owner gets one vote)
+- **Execute** when the required threshold is met
+- **Revoke** confirmations before execution
+- **Receive** ETH directly via receive/fallback
+
+## Project Structure
+
+```
+contracts/
+  token/ManagedToken.sol        -- ERC-20 with mint, burn, pause
+  vesting/VestingSchedule.sol   -- Linear vesting with cliff
+  staking/StakeRewards.sol      -- Stake-to-earn rewards
+  multisig/MultiSig.sol         -- M-of-N multisig wallet
+test/
+  token/ManagedToken.t.sol      -- Token tests
+  vesting/VestingSchedule.t.sol -- Vesting tests
+  staking/StakeRewards.t.sol    -- Staking tests
+  multisig/MultiSig.t.sol       -- Multisig tests
+scripts/
+  deploy-token.js               -- Deploy ManagedToken
+  setup-vesting.js              -- Deploy vesting + create example schedules
+```
+
+## Getting Started
+
+### Prerequisites
+
+- [Foundry](https://book.getfoundry.sh/getting-started/installation) (forge, cast, anvil)
+- [Node.js](https://nodejs.org/) >= 18 (for deployment scripts)
+- ethers.js v6 (`npm install ethers`)
+
+### Build
+
+```bash
+forge build
+```
+
+### Test
+
+```bash
+forge test -vvv
+```
+
+### Deploy
+
+1. Start a local node:
+   ```bash
+   anvil
+   ```
+
+2. Deploy the token:
+   ```bash
+   export PRIVATE_KEY="0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+   export RPC_URL="http://127.0.0.1:8545"
+   export TOKEN_NAME="MyToken"
+   export TOKEN_SYMBOL="MTK"
+   export INITIAL_SUPPLY="1000000"
+   node scripts/deploy-token.js
+   ```
+
+3. Set up vesting schedules:
+   ```bash
+   export TOKEN_ADDRESS="<address from step 2>"
+   node scripts/setup-vesting.js
+   ```
+
+## Configuration
+
+The `foundry.toml` configures:
+- Solidity 0.8.20 compiler
+- Optimizer enabled with 200 runs
+- Shanghai EVM target
+- Source in `contracts/`, tests in `test/`
+
+## License
+
+MIT

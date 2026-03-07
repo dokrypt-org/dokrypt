@@ -1,0 +1,24 @@
+name: {{ .ProjectName }}
+version: "1.0"
+
+chains:
+  {{ .ChainName }}:
+    engine: {{ .Engine }}
+    chain_id: {{ .ChainID }}
+    block_time: 1s
+    accounts: 10
+    balance: "10000000000000000000000"
+    fork:
+      enabled: false
+
+services:
+  ipfs:
+    type: ipfs
+  explorer:
+    type: blockscout
+    depends_on:
+      - {{ .ChainName }}
+  oracle:
+    type: chainlink-mock
+    depends_on:
+      - {{ .ChainName }}

@@ -1,0 +1,12 @@
+name: evm-token
+version: "2.0.0"
+description: "Token toolkit: ERC-20, vesting, staking, multisig"
+author: dokrypt
+category: token
+difficulty: intermediate
+premium: false
+price: free
+tags: [token, erc20, vesting, staking, multisig]
+chains: [ethereum]
+services: []
+license: Apache-2.0

@@ -1,0 +1,36 @@
+name: gas-profiler
+version: 1.0.0
+description: "Real-time gas profiling and optimization suggestions"
+author: "dokrypt"
+license: MIT
+type: container
+
+container:
+  image: dokrypt-plugins/gas-profiler:1.0.0
+  ports:
+    http: 9100
+  environment:
+    CHAIN_RPC: "{{chain.default.rpc_url}}"
+  depends_on:
+    - chain
+
+config:
+  properties:
+    output_format:
+      type: string
+      enum: [table, json, csv]
+      default: table
+    threshold_gwei:
+      type: integer
+      default: 100
+
+hooks:
+  - on_transaction
+  - on_block_mined
+  - on_test_end
+
+commands:
+  - name: gas-profile
+    description: "Show gas profiling dashboard"
+  - name: gas-report
+    description: "Generate gas usage report"

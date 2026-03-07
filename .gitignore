@@ -1,0 +1,50 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/dokrypt
+
+# Build output
+bin/
+dist/
+
+# Test output
+coverage.out
+*.test
+
+# Go workspace
+go.work
+go.work.sum
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Dokrypt state (local dev)
+.dokrypt/
+
+# SQLite databases
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Temporary test dirs
+test-phase*/
+test-project*/
+
+# Claude Code internal files
+.claude/
+
+# Old docs (real docs in mintlify-docs repo)
+docs/

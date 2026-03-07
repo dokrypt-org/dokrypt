@@ -1,0 +1,12 @@
+name: evm-dao
+version: "2.0.0"
+description: "DAO governance: governor, timelock, treasury, voting"
+author: dokrypt
+category: dao
+difficulty: advanced
+premium: false
+price: free
+tags: [dao, governance, voting, treasury]
+chains: [ethereum]
+services: []
+license: Apache-2.0

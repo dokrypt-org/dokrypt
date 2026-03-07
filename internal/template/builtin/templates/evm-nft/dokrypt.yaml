@@ -1,0 +1,21 @@
+version: "1"
+name: evm-nft
+settings:
+  runtime: docker
+  log_level: info
+  accounts: 10
+  account_balance: "10000"
+chains:
+  ethereum:
+    engine: anvil
+    chain_id: 31337
+    block_time: "2s"
+services:
+  ipfs:
+    type: ipfs
+    port: 5001
+    gateway_port: 8080
+  explorer:
+    type: otterscan
+    chain: ethereum
+    port: 5100

@@ -1,0 +1,13 @@
+{
+  "name": "@dokrypt/darwin-arm64",
+  "version": "0.0.0",
+  "description": "Dokrypt CLI binary for macOS Apple Silicon",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dokrypt/dokrypt"
+  },
+  "os": ["darwin"],
+  "cpu": ["arm64"],
+  "files": ["bin/dokrypt"]
+}

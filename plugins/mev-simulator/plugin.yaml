@@ -1,0 +1,35 @@
+name: mev-simulator
+version: 1.0.0
+description: "MEV simulation — frontrun, sandwich, and backrun attack detection"
+author: "dokrypt"
+license: MIT
+type: container
+
+container:
+  image: dokrypt-plugins/mev-simulator:1.0.0
+  ports:
+    http: 9200
+  environment:
+    CHAIN_RPC: "{{chain.default.rpc_url}}"
+  depends_on:
+    - chain
+
+config:
+  properties:
+    strategies:
+      type: array
+      items: [frontrun, sandwich, backrun]
+      default: [frontrun, sandwich]
+    mempool_watch:
+      type: boolean
+      default: true
+
+hooks:
+  - on_transaction
+  - on_block_mined
+
+commands:
+  - name: mev-simulate
+    description: "Simulate MEV extraction on a transaction"
+  - name: mev-report
+    description: "Generate MEV exposure report"

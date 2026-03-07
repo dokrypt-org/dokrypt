@@ -1,0 +1,113 @@
+# {{ .ProjectName }} - DAO Governance System
+
+A complete on-chain DAO governance system built with Solidity ^0.8.20. All contracts are standalone with no external dependencies.
+
+## Architecture
+
+```
+VotingToken (ERC-20 + Votes)
+    |
+    v
+Governor (Proposal & Voting Engine)
+    |
+    v
+Timelock (Delay Controller)
+    |
+    v
+Treasury (DAO Funds)
+```
+
+### Contracts
+
+| Contract | Description |
+|----------|-------------|
+| **VotingToken** | ERC-20 token with vote delegation and checkpoint-based historical voting power. Token holders delegate their voting weight to themselves or others. |
+| **Governor** | Core governance contract. Handles proposal creation, voting, and execution. Configurable voting delay, period, quorum, and proposal threshold. |
+| **Timelock** | Enforces a minimum delay between proposal passage and execution. Provides a safety window for users to react to governance decisions. |
+| **Treasury** | Holds ETH and ERC-20 tokens on behalf of the DAO. Only the Timelock (via governance) can authorize withdrawals. |
+
+## Governance Lifecycle
+
+1. **Propose** - A token holder with sufficient voting power creates a proposal specifying target contracts, calldata, and a description.
+2. **Vote** - After the voting delay, token holders cast votes: For (1), Against (0), or Abstain (2). Voting power is snapshot at the proposal's start block.
+3. **Succeed / Defeat** - When the voting period ends, the proposal succeeds if quorum is reached and For votes exceed Against votes.
+4. **Execute** - A succeeded proposal can be executed, which calls the specified targets through the Timelock.
+
+## Configuration Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `votingDelay` | Blocks between proposal creation and vote start | 1 block |
+| `votingPeriod` | Blocks the vote remains open | 45818 (~1 week at 12s blocks) |
+| `quorum` | Minimum total votes for a proposal to pass | 10,000 tokens |
+| `proposalThreshold` | Minimum token balance to create a proposal | 100 tokens |
+| `minDelay` (Timelock) | Seconds before a queued operation can execute | 86400 (1 day) |
+
+## Getting Started
+
+### Prerequisites
+
+- [Foundry](https://getfoundry.sh/) for compilation and testing
+- [Node.js](https://nodejs.org/) for deployment scripts
+
+### Build
+
+```bash
+forge build
+```
+
+### Test
+
+```bash
+forge test -vvv
+```
+
+### Deploy
+
+```bash
+npx hardhat run scripts/deploy-dao.js --network <network>
+```
+
+### Create a Proposal
+
+```bash
+# Set contract addresses from deployment output
+export GOVERNOR_ADDRESS=0x...
+export TREASURY_ADDRESS=0x...
+export TOKEN_ADDRESS=0x...
+
+npx hardhat run scripts/create-proposal.js --network <network>
+```
+
+## Project Structure
+
+```
+contracts/
+  token/
+    VotingToken.sol       # ERC-20 with delegation and checkpoints
+  governance/
+    Governor.sol          # Proposal and voting engine
+    Timelock.sol          # Delay controller
+    Treasury.sol          # DAO treasury
+test/
+  token/
+    VotingToken.t.sol     # Token and delegation tests
+  governance/
+    Governor.t.sol        # Governance lifecycle tests
+    Timelock.t.sol        # Timelock schedule/execute tests
+    Treasury.t.sol        # Treasury deposit/withdraw tests
+scripts/
+  deploy-dao.js           # Full stack deployment
+  create-proposal.js      # Example proposal creation
+```
+
+## Security Considerations
+
+- The Timelock delay provides a safety window for users to exit before a potentially malicious proposal executes.
+- Voting power is checkpointed at proposal creation time to prevent flash-loan vote manipulation.
+- The Treasury only accepts withdrawals from the controller (Timelock), ensuring all fund movements pass through governance.
+- Admin roles should be renounced or transferred to the governance system itself after initial setup.
+
+## License
+
+MIT

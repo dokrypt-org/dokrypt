@@ -1,0 +1,39 @@
+{
+  "name": "dokrypt",
+  "version": "0.0.0",
+  "description": "Dokrypt — Docker for Web3. A Web3-native containerization and orchestration platform for dApp development, testing, and deployment.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dokrypt/dokrypt"
+  },
+  "homepage": "https://dokrypt.dev",
+  "bugs": {
+    "url": "https://github.com/dokrypt/dokrypt/issues"
+  },
+  "keywords": [
+    "web3",
+    "blockchain",
+    "ethereum",
+    "docker",
+    "containerization",
+    "dapp",
+    "smart-contracts",
+    "devtools",
+    "anvil",
+    "foundry"
+  ],
+  "bin": {
+    "dokrypt": "bin/dokrypt.js"
+  },
+  "optionalDependencies": {
+    "@dokrypt/win32-x64": "0.0.0",
+    "@dokrypt/darwin-arm64": "0.0.0",
+    "@dokrypt/darwin-x64": "0.0.0",
+    "@dokrypt/linux-x64": "0.0.0",
+    "@dokrypt/linux-arm64": "0.0.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

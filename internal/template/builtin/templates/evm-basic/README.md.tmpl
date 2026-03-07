@@ -1,0 +1,31 @@
+# {{ .ProjectName }}
+
+Built with [Dokrypt](https://dokrypt.dev) — Docker for Web3.
+
+## Quick Start
+
+```bash
+# Start local blockchain
+dokrypt up
+
+# Deploy contracts
+npx hardhat run scripts/deploy.js --network localhost
+
+# Run tests
+forge test
+```
+
+## Contracts
+
+- **Counter.sol** — Simple counter with increment/decrement
+- **SimpleToken.sol** — Minimal ERC-20 token with mint
+
+## Commands
+
+```bash
+dokrypt up          # Start environment
+dokrypt down        # Stop environment
+dokrypt status      # Check status
+dokrypt accounts    # List accounts
+dokrypt logs        # View logs
+```

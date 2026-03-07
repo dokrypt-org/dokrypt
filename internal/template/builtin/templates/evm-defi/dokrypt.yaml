@@ -1,0 +1,30 @@
+version: "1"
+name: evm-defi
+settings:
+  runtime: docker
+  log_level: info
+  accounts: 10
+  account_balance: "100000"
+chains:
+  ethereum:
+    engine: anvil
+    chain_id: 31337
+    block_time: "2s"
+    fork:
+      network: mainnet
+services:
+  ipfs:
+    type: ipfs
+    port: 5001
+    gateway_port: 8080
+  indexer:
+    type: subgraph
+    chain: ethereum
+    depends_on: ["ipfs"]
+  explorer:
+    type: blockscout
+    chain: ethereum
+    port: 4000
+  oracle:
+    type: chainlink-mock
+    chain: ethereum

@@ -1,0 +1,121 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+          cache: true
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: latest
+          args: --timeout=5m
+
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        go-version: ["1.24"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache: true
+
+      - name: Run tests
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      - name: Upload coverage
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.24'
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage.out
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+          cache: true
+
+      - name: Build CLI
+        run: go build -o bin/dokrypt ./cmd/dokrypt
+
+      - name: Verify CLI
+        run: ./bin/dokrypt --help
+
+      - name: Run go vet
+        run: go vet ./...
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: dokrypt-binaries
+          path: bin/
+
+  integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [build]
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+          cache: true
+
+      - name: Run integration tests
+        run: go test -tags=integration -timeout=10m ./test/...
+        env:
+          DOCKER_HOST: unix:///var/run/docker.sock
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+          cache: true
+
+      - name: Run govulncheck
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
+
+      - name: Run gosec
+        uses: securego/gosec@master
+        with:
+          args: -exclude=G104 ./...
