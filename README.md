@@ -1,10 +1,5 @@
 <p align="center">
-  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 12h5l3 4-3 4h-5l3-4-3-4z" fill="#7c3aed" opacity=".7" />
-    <path d="M17 12h5l3 4-3 4h-5l3-4-3-4z" fill="#7c3aed" opacity=".4" />
-    <path d="M10 20h5l3 4-3 4h-5l3-4-3-4z" fill="#7c3aed" opacity=".4" />
-    <path d="M17 20h5l3 4-3 4h-5l3-4-3-4z" fill="#7c3aed" opacity=".2" />
-  </svg>
+  <img src="logo.svg" alt="Dokrypt" width="60" />
 </p>
 
 <h1 align="center">Dokrypt</h1>
