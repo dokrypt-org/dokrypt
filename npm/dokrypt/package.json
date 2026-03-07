@@ -5,11 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dokrypt/dokrypt"
+    "url": "https://github.com/dokrypt-org/dokrypt"
   },
   "homepage": "https://dokrypt.dev",
   "bugs": {
-    "url": "https://github.com/dokrypt/dokrypt/issues"
+    "url": "https://github.com/dokrypt-org/dokrypt/issues"
   },
   "keywords": [
     "web3",

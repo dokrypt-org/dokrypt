@@ -67,7 +67,7 @@ snapshot:
 
 release:
   github:
-    owner: dokrypt
+    owner: dokrypt-org
     name: dokrypt
   draft: false
   prerelease: auto
