@@ -1,3 +1,5 @@
+version: 2
+
 project_name: dokrypt
 
 builds:
@@ -63,7 +65,7 @@ changelog:
       order: 999
 
 snapshot:
-  version_template: "{{ incpatch .Version }}-next"
+  name_template: "{{ incpatch .Version }}-next"
 
 release:
   github:
