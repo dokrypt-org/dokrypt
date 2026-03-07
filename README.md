@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.svg" alt="Dokrypt" width="60" />
+  <img src=".github/logo.svg" alt="Dokrypt" width="60" />
 </p>
 
 <h1 align="center">Dokrypt</h1>
@@ -9,9 +9,17 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/dokrypt-org/dokrypt/releases"><img src="https://img.shields.io/github/v/release/dokrypt-org/dokrypt?style=flat-square&color=7c3aed" alt="Release" /></a>
+  <a href="https://www.npmjs.com/package/dokrypt"><img src="https://img.shields.io/npm/v/dokrypt?style=flat-square&color=7c3aed" alt="npm" /></a>
+  <a href="https://github.com/dokrypt-org/dokrypt/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/dokrypt-org/dokrypt/ci.yml?style=flat-square" alt="CI" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/dokrypt-org/dokrypt?style=flat-square" alt="License" /></a>
+</p>
+
+<p align="center">
   <a href="https://keldra.mintlify.app">Documentation</a> &middot;
   <a href="https://github.com/dokrypt-org/dokrypt/issues">Issues</a> &middot;
-  <a href="https://keldra.mintlify.app/quickstart">Quickstart</a>
+  <a href="https://keldra.mintlify.app/quickstart">Quickstart</a> &middot;
+  <a href="https://www.npmjs.com/package/dokrypt">npm</a>
 </p>
 
 ---
@@ -20,10 +28,95 @@ Dokrypt spins up fully configured blockchain development environments in seconds
 
 ```bash
 npm install -g dokrypt
-dokrypt init my-app
+dokrypt init my-app --template evm-defi
 cd my-app
 dokrypt up
 ```
+
+## Platform Support
+
+Dokrypt runs on **all major platforms**:
+
+| Platform | Architecture | Install Method |
+|----------|-------------|----------------|
+| Linux | x64, ARM64 | npm, Binary, Docker |
+| macOS | x64, Apple Silicon (M1/M2/M3) | npm, Binary |
+| Windows | x64 | npm, Binary |
+
+## Installation
+
+### npm (recommended)
+
+Works on all platforms. Automatically downloads the correct binary for your OS.
+
+```bash
+npm install -g dokrypt
+```
+
+Verify:
+
+```bash
+dokrypt version
+```
+
+### Binary Download
+
+Download pre-built binaries from [GitHub Releases](https://github.com/dokrypt-org/dokrypt/releases/latest):
+
+**Linux / macOS:**
+
+```bash
+# Linux x64
+curl -L https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_0.1.0_linux_amd64.tar.gz | tar xz
+sudo mv dokrypt /usr/local/bin/
+
+# macOS Apple Silicon
+curl -L https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_0.1.0_darwin_arm64.tar.gz | tar xz
+sudo mv dokrypt /usr/local/bin/
+
+# macOS Intel
+curl -L https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_0.1.0_darwin_amd64.tar.gz | tar xz
+sudo mv dokrypt /usr/local/bin/
+```
+
+**Windows:**
+
+Download `dokrypt_0.1.0_windows_amd64.zip` from [Releases](https://github.com/dokrypt-org/dokrypt/releases/latest), extract, and add to your PATH.
+
+### Docker
+
+Run Dokrypt without installing anything:
+
+```bash
+docker pull ghcr.io/dokrypt-org/dokrypt:latest
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/dokrypt-org/dokrypt:latest --help
+```
+
+Or pin to a specific version:
+
+```bash
+docker pull ghcr.io/dokrypt-org/dokrypt:0.1.0
+```
+
+### Go Install
+
+```bash
+go install github.com/dokrypt-org/dokrypt/cmd/dokrypt@latest
+```
+
+### Build from Source
+
+```bash
+git clone https://github.com/dokrypt-org/dokrypt.git
+cd dokrypt
+make build
+# Binary at ./bin/dokrypt
+```
+
+### Requirements
+
+- **Docker** (or Podman) running locally — required for all chain and service operations
+- **Go 1.24+** — only if building from source
 
 ## Why Dokrypt
 
@@ -72,33 +165,6 @@ dokrypt init my-app --template evm-nft        # ERC-721 with marketplace + royal
 dokrypt init my-app --template evm-dao        # Governor + Treasury + Timelock
 dokrypt init my-app --template evm-defi       # AMM + Lending + Staking + Oracle
 ```
-
-## Installation
-
-### npm (recommended)
-
-```bash
-npm install -g dokrypt
-```
-
-### Go
-
-```bash
-go install github.com/dokrypt/dokrypt/cmd/dokrypt@latest
-```
-
-### From source
-
-```bash
-git clone https://github.com/dokrypt-org/dokrypt.git
-cd dokrypt
-make build
-```
-
-### Requirements
-
-- **Docker** (or Podman) running locally
-- **Go 1.24+** (only if building from source)
 
 ## Quick Start
 
