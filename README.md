@@ -25,8 +25,6 @@
 
 ---
 
-Dokrypt spins up fully configured blockchain development environments in seconds. One command gives you a local chain, block explorer, IPFS, oracles, indexers, monitoring, and everything else your dApp needs — all containerized and ready to go.
-
 ```bash
 npm install -g dokrypt
 dokrypt init my-app --template evm-defi
@@ -185,9 +183,9 @@ dokrypt up
 This reads your `dokrypt.yaml` and starts all configured services:
 
 ```
-  ✔ ethereum (anvil) .............. http://localhost:8545
-  ✔ blockscout .................... http://localhost:4000
-  ✔ ipfs .......................... http://localhost:5001
+ethereum (anvil)    http://localhost:8545
+blockscout          http://localhost:4000
+ipfs                http://localhost:5001
 ```
 
 ### 3. Interact with the chain
