@@ -25,6 +25,8 @@
 
 ---
 
+Dokrypt spins up fully configured blockchain development environments in seconds. One command gives you a local chain, block explorer, IPFS, oracles, indexers, monitoring, and everything else your dApp needs, all containerized and ready to go.
+
 ```bash
 npm install -g dokrypt
 dokrypt init my-app --template evm-defi
