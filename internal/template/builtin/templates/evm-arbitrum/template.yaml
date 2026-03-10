@@ -1,0 +1,12 @@
+name: evm-arbitrum
+version: "2.0.0"
+description: "Arbitrum L2 development stack: cross-chain messaging, token bridging, and gas-efficient contracts"
+author: dokrypt
+category: l2
+difficulty: intermediate
+premium: false
+price: free
+tags: [arbitrum, l2, bridge, stylus, evm, cross-chain]
+chains: [arbitrum]
+services: [blockscout]
+license: Apache-2.0

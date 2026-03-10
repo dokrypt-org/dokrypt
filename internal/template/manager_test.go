@@ -18,7 +18,7 @@ func TestNewManager(t *testing.T) {
 
 func TestNewManagerRegistersBuiltins(t *testing.T) {
 	m := NewManager(t.TempDir())
-	expectedNames := []string{"evm-basic", "evm-defi", "evm-nft", "evm-dao", "evm-token"}
+	expectedNames := []string{"evm-basic", "evm-defi", "evm-nft", "evm-dao", "evm-token", "evm-arbitrum"}
 
 	for _, name := range expectedNames {
 		info, ok := m.builtins[name]
@@ -77,7 +77,7 @@ func TestManagerListBuiltinsOnly(t *testing.T) {
 	m := NewManager(filepath.Join(t.TempDir(), "nonexistent"))
 	list := m.List()
 
-	assert.Len(t, list, 5)
+	assert.Len(t, list, 6)
 
 	names := make(map[string]bool)
 	for _, info := range list {
@@ -90,6 +90,7 @@ func TestManagerListBuiltinsOnly(t *testing.T) {
 	assert.True(t, names["evm-nft"])
 	assert.True(t, names["evm-dao"])
 	assert.True(t, names["evm-token"])
+	assert.True(t, names["evm-arbitrum"])
 }
 
 func TestManagerListWithUserTemplates(t *testing.T) {
@@ -108,7 +109,7 @@ category: custom
 	m := NewManager(globalDir)
 	list := m.List()
 
-	assert.Len(t, list, 6)
+	assert.Len(t, list, 7)
 
 	found := false
 	for _, info := range list {
@@ -132,7 +133,7 @@ func TestManagerListSkipsFiles(t *testing.T) {
 	m := NewManager(globalDir)
 	list := m.List()
 
-	assert.Len(t, list, 5)
+	assert.Len(t, list, 6)
 }
 
 func TestManagerListSkipsDirsWithoutTemplateYaml(t *testing.T) {
@@ -143,7 +144,7 @@ func TestManagerListSkipsDirsWithoutTemplateYaml(t *testing.T) {
 	m := NewManager(globalDir)
 	list := m.List()
 
-	assert.Len(t, list, 5)
+	assert.Len(t, list, 6)
 }
 
 func TestManagerListSkipsInvalidYaml(t *testing.T) {
@@ -156,7 +157,7 @@ func TestManagerListSkipsInvalidYaml(t *testing.T) {
 	m := NewManager(globalDir)
 	list := m.List()
 
-	assert.Len(t, list, 5)
+	assert.Len(t, list, 6)
 }
 
 func TestManagerGetBuiltin(t *testing.T) {

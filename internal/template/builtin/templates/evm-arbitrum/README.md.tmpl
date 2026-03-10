@@ -1,0 +1,101 @@
+# {{ .ProjectName }} - Arbitrum L2 Stack
+
+A production-quality Arbitrum L2 development stack built with Solidity ^0.8.20. Includes cross-chain messaging, token bridging, and gas-efficient contracts. All contracts are standalone with no external dependencies.
+
+## Architecture
+
+This template includes four core modules for Arbitrum L2 development:
+
+### 1. Token (`contracts/token/ArbitrumToken.sol`)
+Gas-efficient ERC-20 token optimized for Arbitrum L2:
+- Standard `transfer`, `approve`, `transferFrom`
+- Owner-controlled `mint` and permissionless `burn`
+- Gas-optimized storage layout for L2 cost reduction
+- Batch transfer support for multi-recipient distributions
+
+### 2. L1-to-L2 Bridge Messaging (`contracts/bridge/L1ToL2MessageSender.sol`)
+Contract for sending messages from L1 to Arbitrum L2:
+- Retryable ticket creation for guaranteed L2 execution
+- Configurable gas parameters for L2 execution
+- Message tracking with unique ticket IDs
+- Owner-managed L2 target configuration
+
+### 3. L2-to-L1 Bridge Messaging (`contracts/bridge/L2ToL1MessageSender.sol`)
+Contract for sending messages from Arbitrum L2 back to L1:
+- Outbox-based message passing via ArbSys precompile
+- Message nonce tracking for replay protection
+- Configurable L1 target addresses
+- Event-based message confirmation
+
+### 4. Token Gateway (`contracts/gateway/TokenGateway.sol`)
+Bidirectional token bridging between L1 and L2:
+- Deposit tokens from L1 to L2 with automatic minting
+- Withdraw tokens from L2 to L1 with burn-and-release
+- Paired L1/L2 gateway architecture
+- Configurable token mappings between layers
+
+## Quick Start
+
+### Prerequisites
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
+- Node.js >= 16 (for deploy scripts)
+
+### Build
+```bash
+forge build
+```
+
+### Test
+```bash
+forge test -vvv
+```
+
+### Deploy (local Arbitrum fork)
+```bash
+# Start a local Arbitrum fork
+dokrypt up
+
+# Deploy contracts
+npx hardhat run scripts/deploy.js --network localhost
+
+# Bridge tokens
+npx hardhat run scripts/bridge-tokens.js --network localhost
+```
+
+## Project Structure
+
+```
+contracts/
+  token/
+    ArbitrumToken.sol        # Gas-efficient ERC-20 for Arbitrum
+  bridge/
+    L1ToL2MessageSender.sol  # L1 -> L2 message sender
+    L2ToL1MessageSender.sol  # L2 -> L1 message sender
+  gateway/
+    TokenGateway.sol         # Token bridging gateway
+
+test/
+  ArbitrumToken.t.sol        # Token tests
+  L1ToL2Message.t.sol        # L1 -> L2 message tests
+  TokenGateway.t.sol         # Gateway tests
+
+scripts/
+  deploy.js                  # Contract deployment
+  bridge-tokens.js           # Token bridging operations
+```
+
+## Security Notes
+
+- All contracts include reentrancy guards on state-changing functions
+- Bridge messaging contracts validate sender addresses to prevent unauthorized cross-chain calls
+- The token gateway enforces balance checks before and after every bridge operation
+- Message nonces prevent replay attacks on cross-chain messages
+- No external imports or dependencies -- all code is self-contained
+
+## Configuration
+
+See `dokrypt.yaml` for chain configuration and `foundry.toml` for compiler settings.
+
+## License
+
+Apache-2.0

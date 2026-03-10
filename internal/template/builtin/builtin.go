@@ -27,5 +27,6 @@ func Names() []string {
 		"evm-nft",
 		"evm-dao",
 		"evm-token",
+		"evm-arbitrum",
 	}
 }

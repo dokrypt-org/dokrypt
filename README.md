@@ -165,6 +165,7 @@ dokrypt init my-app --template evm-token      # ERC-20 with vesting, staking, mu
 dokrypt init my-app --template evm-nft        # ERC-721 with marketplace + royalties
 dokrypt init my-app --template evm-dao        # Governor + Treasury + Timelock
 dokrypt init my-app --template evm-defi       # AMM + Lending + Staking + Oracle
+dokrypt init my-app --template evm-arbitrum   # L2 bridge + Token gateway + Arbitrum fork
 ```
 
 ## Quick Start

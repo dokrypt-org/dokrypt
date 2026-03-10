@@ -95,9 +95,9 @@ func TestTemplateFSEvmBasicContents(t *testing.T) {
 func TestNames(t *testing.T) {
 	names := Names()
 
-	assert.Len(t, names, 5)
+	assert.Len(t, names, 6)
 
-	expected := []string{"evm-basic", "evm-defi", "evm-nft", "evm-dao", "evm-token"}
+	expected := []string{"evm-basic", "evm-defi", "evm-nft", "evm-dao", "evm-token", "evm-arbitrum"}
 	assert.Equal(t, expected, names)
 }
 

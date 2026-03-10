@@ -81,6 +81,15 @@ func (m *Manager) registerBuiltins() {
 			Chains: []string{"ethereum"}, Services: nil,
 			License: "Apache-2.0",
 		},
+		{
+			Name: "evm-arbitrum", Version: "2.0.0",
+			Description: "Arbitrum L2 development: bridge messaging, token gateway, L1/L2 interop",
+			Author: "dokrypt", Category: "l2", Difficulty: "intermediate",
+			Premium: false, Price: "free",
+			Tags: []string{"arbitrum", "l2", "bridge", "gateway", "stylus", "orbit"},
+			Chains: []string{"arbitrum"}, Services: []string{"blockscout"},
+			License: "Apache-2.0",
+		},
 	}
 	for _, t := range templates {
 		t := t

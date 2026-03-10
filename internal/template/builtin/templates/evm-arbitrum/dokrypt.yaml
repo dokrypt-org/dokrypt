@@ -1,0 +1,24 @@
+version: "1"
+name: evm-arbitrum
+settings:
+  runtime: docker
+  log_level: info
+  accounts: 10
+  account_balance: "100000"
+chains:
+  arbitrum:
+    engine: anvil
+    chain_id: 42161
+    block_time: "1s"
+    fork:
+      network: arbitrum-mainnet
+      chain_id: 42161
+services:
+  explorer:
+    type: blockscout
+    chain: arbitrum
+    port: 4000
+  monitor:
+    type: prometheus
+    chain: arbitrum
+    port: 9090
