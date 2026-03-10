@@ -72,6 +72,9 @@ func NewRootCmd() *cobra.Command {
 		newVersionCmd(),
 		newMarketplaceCmd(),
 		newCICmd(),
+		newVerifyCmd(),
+		newReplayCmd(),
+		newDeployCmd(),
 	)
 
 	return rootCmd
