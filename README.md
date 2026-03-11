@@ -67,22 +67,24 @@ Download pre-built binaries from [GitHub Releases](https://github.com/dokrypt-or
 **Linux / macOS:**
 
 ```bash
+VERSION=$(curl -s https://api.github.com/repos/dokrypt-org/dokrypt/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//')
+
 # Linux x64
-curl -L https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_0.1.3_linux_amd64.tar.gz | tar xz
+curl -L "https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_${VERSION}_linux_amd64.tar.gz" | tar xz
 sudo mv dokrypt /usr/local/bin/
 
 # macOS Apple Silicon
-curl -L https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_0.1.3_darwin_arm64.tar.gz | tar xz
+curl -L "https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_${VERSION}_darwin_arm64.tar.gz" | tar xz
 sudo mv dokrypt /usr/local/bin/
 
 # macOS Intel
-curl -L https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_0.1.3_darwin_amd64.tar.gz | tar xz
+curl -L "https://github.com/dokrypt-org/dokrypt/releases/latest/download/dokrypt_${VERSION}_darwin_amd64.tar.gz" | tar xz
 sudo mv dokrypt /usr/local/bin/
 ```
 
 **Windows:**
 
-Download `dokrypt_0.1.3_windows_amd64.zip` from [Releases](https://github.com/dokrypt-org/dokrypt/releases/latest), extract, and add to your PATH.
+Download the latest `dokrypt_*_windows_amd64.zip` from [Releases](https://github.com/dokrypt-org/dokrypt/releases/latest), extract, and add to your PATH.
 
 ### Docker
 
@@ -96,7 +98,7 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/dokrypt-org
 Or pin to a specific version:
 
 ```bash
-docker pull ghcr.io/dokrypt-org/dokrypt:0.1.3
+docker pull ghcr.io/dokrypt-org/dokrypt:0.1.3  # replace with desired version
 ```
 
 ### Go Install
