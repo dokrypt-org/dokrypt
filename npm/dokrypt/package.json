@@ -2,7 +2,7 @@
   "name": "dokrypt",
   "version": "0.0.0",
   "description": "Dokrypt — Docker for Web3. A Web3-native containerization and orchestration platform for dApp development, testing, and deployment.",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/dokrypt-org/dokrypt"
@@ -24,7 +24,8 @@
     "foundry"
   ],
   "files": [
-    "bin/dokrypt.js"
+    "bin/dokrypt.js",
+    "README.md"
   ],
   "bin": {
     "dokrypt": "bin/dokrypt.js"
