@@ -75,6 +75,7 @@ func NewRootCmd() *cobra.Command {
 		newVerifyCmd(),
 		newReplayCmd(),
 		newDeployCmd(),
+		newScenarioCmd(),
 	)
 
 	return rootCmd

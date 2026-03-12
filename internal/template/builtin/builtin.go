@@ -28,5 +28,6 @@ func Names() []string {
 		"evm-dao",
 		"evm-token",
 		"evm-arbitrum",
+		"agent-sandbox",
 	}
 }

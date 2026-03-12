@@ -90,6 +90,15 @@ func (m *Manager) registerBuiltins() {
 			Chains: []string{"arbitrum"}, Services: []string{"blockscout"},
 			License: "Apache-2.0",
 		},
+		{
+			Name: "agent-sandbox", Version: "2.0.0",
+			Description: "AI Agent Testing Sandbox — Forked mainnet DeFi, pre-funded accounts, stress-test scenarios",
+			Author: "dokrypt", Category: "ai-agent", Difficulty: "intermediate",
+			Premium: false, Price: "free",
+			Tags: []string{"ai", "agent", "sandbox", "defi", "trading", "bot", "elizaos", "langchain", "forked-mainnet"},
+			Chains: []string{"ethereum"}, Services: []string{"blockscout", "chainlink-mock", "grafana"},
+			License: "Apache-2.0",
+		},
 	}
 	for _, t := range templates {
 		t := t

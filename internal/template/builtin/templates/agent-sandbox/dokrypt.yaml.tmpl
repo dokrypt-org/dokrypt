@@ -1,0 +1,27 @@
+name: {{ .ProjectName }}
+version: "1.0"
+
+chains:
+  {{ .ChainName }}:
+    engine: {{ .Engine }}
+    chain_id: 1
+    block_time: 1s
+    accounts: 20
+    balance: "100000000000000000000000"
+    fork:
+      enabled: true
+      network: mainnet
+
+services:
+  explorer:
+    type: blockscout
+    depends_on:
+      - {{ .ChainName }}
+  oracle:
+    type: chainlink-mock
+    depends_on:
+      - {{ .ChainName }}
+  monitoring:
+    type: grafana
+    depends_on:
+      - {{ .ChainName }}

@@ -98,7 +98,7 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/dokrypt-org
 Or pin to a specific version:
 
 ```bash
-docker pull ghcr.io/dokrypt-org/dokrypt:0.1.3  # replace with desired version
+docker pull ghcr.io/dokrypt-org/dokrypt:0.1.4  # replace with desired version
 ```
 
 ### Go Install

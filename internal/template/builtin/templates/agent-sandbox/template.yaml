@@ -1,0 +1,12 @@
+name: agent-sandbox
+version: "2.0.0"
+description: "AI Agent Testing Sandbox — Forked mainnet DeFi, pre-funded accounts, stress-test scenarios"
+author: dokrypt
+category: ai-agent
+difficulty: intermediate
+premium: false
+price: free
+tags: [ai, agent, sandbox, defi, trading, bot, elizaos, langchain, forked-mainnet]
+chains: [ethereum]
+services: [blockscout, chainlink-mock, grafana]
+license: Apache-2.0
