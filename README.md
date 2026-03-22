@@ -13,14 +13,17 @@
   <a href="https://www.npmjs.com/package/dokrypt"><img src="https://img.shields.io/npm/v/dokrypt?style=flat-square&color=7c3aed" alt="npm" /></a>
   <a href="https://github.com/dokrypt-org/dokrypt/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/dokrypt-org/dokrypt/ci.yml?style=flat-square" alt="CI" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/dokrypt-org/dokrypt?style=flat-square" alt="License" /></a>
+  <a href="https://x.com/dokryptorg"><img src="https://img.shields.io/badge/follow-%40dokryptorg-1DA1F2?style=flat-square&logo=x&logoColor=white" alt="X (Twitter)" /></a>
 </p>
 
 <p align="center">
+  <a href="https://dokrypt.com">Website</a> &middot;
   <a href="https://docs.dokrypt.com">Documentation</a> &middot;
   <a href="https://github.com/dokrypt-org/dokrypt/issues">Issues</a> &middot;
   <a href="https://docs.dokrypt.com/quickstart">Quickstart</a> &middot;
   <a href="https://www.npmjs.com/package/dokrypt">npm</a> &middot;
-  <a href="https://discord.gg/HG94Jg6PS2">Discord</a>
+  <a href="https://discord.gg/HG94Jg6PS2">Discord</a> &middot;
+  <a href="https://x.com/dokryptorg">X</a>
 </p>
 
 ---
