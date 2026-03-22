@@ -155,25 +155,3 @@ func stopImpersonating(rpcURL string, address string) error {
 	return nil
 }
 
-func snapshot(rpcURL string) (string, error) {
-	result, err := rpcCall(rpcURL, "evm_snapshot")
-	if err != nil {
-		return "", fmt.Errorf("failed to take snapshot: %w", err)
-	}
-	var snapID string
-	json.Unmarshal(result, &snapID)
-	return snapID, nil
-}
-
-func revertSnapshot(rpcURL string, snapID string) error {
-	result, err := rpcCall(rpcURL, "evm_revert", snapID)
-	if err != nil {
-		return fmt.Errorf("failed to revert snapshot: %w", err)
-	}
-	var success bool
-	json.Unmarshal(result, &success)
-	if !success {
-		return fmt.Errorf("snapshot revert returned false — snapshot may have already been consumed")
-	}
-	return nil
-}
