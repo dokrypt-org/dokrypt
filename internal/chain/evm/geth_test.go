@@ -62,10 +62,10 @@ func TestGethChain_RPCURL(t *testing.T) {
 func TestGethChain_WSURL(t *testing.T) {
 	gc, err := NewGethChain("test", config.ChainConfig{}, nil, "proj")
 	require.NoError(t, err)
-	assert.Equal(t, "ws://localhost:0", gc.WSURL())
-
-	gc.wsHostPort = 8546
 	assert.Equal(t, "ws://localhost:8546", gc.WSURL())
+
+	gc.wsHostPort = 9546
+	assert.Equal(t, "ws://localhost:9546", gc.WSURL())
 }
 
 func TestGethChain_ContainerID(t *testing.T) {

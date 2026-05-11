@@ -39,7 +39,7 @@ func NewAnvilChain(name string, cfg config.ChainConfig, runtime container.Runtim
 		cfg:         cfg,
 		runtime:     runtime,
 		projectName: projectName,
-		hostPort:    8545,
+		hostPort:    cfg.HostPort(anvilDefaultPort),
 	}, nil
 }
 
@@ -62,7 +62,7 @@ func (a *AnvilChain) Start(ctx context.Context) error {
 		Image:      anvilImage,
 		Entrypoint: cmd[:1],  // ["anvil"]
 		Command:    cmd[1:],  // ["--host", "0.0.0.0", ...]
-		Ports:      map[int]int{anvilDefaultPort: 0}, // auto-assign host port
+		Ports:      map[int]int{anvilDefaultPort: a.hostPort},
 		Networks:   []string{networkName},
 		NetworkAliases: map[string][]string{
 			networkName: {a.name, containerName},

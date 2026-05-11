@@ -38,7 +38,7 @@ func NewHardhatChain(name string, cfg config.ChainConfig, runtime container.Runt
 		cfg:         cfg,
 		runtime:     runtime,
 		projectName: projectName,
-		hostPort:    8545,
+		hostPort:    cfg.HostPort(hardhatDefaultPort),
 	}, nil
 }
 
@@ -63,7 +63,7 @@ func (h *HardhatChain) Start(ctx context.Context) error {
 		Name:    containerName,
 		Image:   hardhatImage,
 		Command: cmd,
-		Ports:   map[int]int{hardhatDefaultPort: 0},
+		Ports:   map[int]int{hardhatDefaultPort: h.hostPort},
 		Networks: []string{networkName},
 		NetworkAliases: map[string][]string{
 			networkName: {h.name, containerName},

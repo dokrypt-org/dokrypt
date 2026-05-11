@@ -39,7 +39,8 @@ func NewGethChain(name string, cfg config.ChainConfig, runtime container.Runtime
 		cfg:         cfg,
 		runtime:     runtime,
 		projectName: projectName,
-		hostPort:    8545,
+		hostPort:    cfg.HostPort(gethDefaultPort),
+		wsHostPort:  8546,
 	}, nil
 }
 
@@ -75,7 +76,7 @@ func (g *GethChain) Start(ctx context.Context) error {
 		Name:    containerName,
 		Image:   gethImage,
 		Command: cmd,
-		Ports:   map[int]int{gethDefaultPort: 0, 8546: 0},
+		Ports:   map[int]int{gethDefaultPort: g.hostPort, 8546: g.wsHostPort},
 		Labels: map[string]string{
 			"dokrypt.project": g.projectName,
 			"dokrypt.chain":   g.name,

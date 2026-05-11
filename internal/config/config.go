@@ -11,6 +11,7 @@ type Config struct {
 	Services map[string]ServiceConfig  `yaml:"services"`
 	Plugins  map[string]PluginConfig   `yaml:"plugins"`
 	Tests    TestConfig                `yaml:"tests"`
+	CI       CIConfig                  `yaml:"ci"`
 	Hooks    HookConfig                `yaml:"hooks"`
 }
 
@@ -30,6 +31,7 @@ type Profile struct {
 type ChainConfig struct {
 	Engine         string              `yaml:"engine"`
 	ChainID        uint64              `yaml:"chain_id"`
+	Port           int                 `yaml:"port,omitempty"`
 	Fork           *ForkConfig         `yaml:"fork,omitempty"`
 	BlockTime      string              `yaml:"block_time"`
 	Accounts       int                 `yaml:"accounts"`
@@ -43,6 +45,13 @@ type ChainConfig struct {
 	Mining         MiningConfig        `yaml:"mining"`
 	GenesisAccounts []GenesisAccount  `yaml:"genesis_accounts"`
 	Deploy         []DeployConfig      `yaml:"deploy"`
+}
+
+func (c ChainConfig) HostPort(defaultPort int) int {
+	if c.Port > 0 {
+		return c.Port
+	}
+	return defaultPort
 }
 
 func (c ChainConfig) GetBalance() string {
@@ -159,6 +168,25 @@ type TestSuiteConfig struct {
 	Timeout           string   `yaml:"timeout"`
 	SnapshotIsolation bool     `yaml:"snapshot_isolation"`
 	Services          []string `yaml:"services"`
+}
+
+type CIConfig struct {
+	Gas  GasCIConfig  `yaml:"gas"`
+	Fuzz FuzzCIConfig `yaml:"fuzz"`
+}
+
+type GasCIConfig struct {
+	MaxGasPerFunction uint64  `yaml:"max_gas_per_function"`
+	MaxL1DataFee      string  `yaml:"max_l1_data_fee"`
+	MaxTotalCostETH   float64 `yaml:"max_total_cost_eth"`
+	FailOnExceed      bool    `yaml:"fail_on_exceed"`
+}
+
+type FuzzCIConfig struct {
+	Iterations    int      `yaml:"iterations"`
+	Vectors       []string `yaml:"vectors"`
+	FailOnCritical bool    `yaml:"fail_on_critical"`
+	FailOnHigh     bool    `yaml:"fail_on_high"`
 }
 
 type HookConfig struct {
